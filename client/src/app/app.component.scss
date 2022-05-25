@@ -1,6 +1,7 @@
 #how-to{
-  background-color: #dddff1;
-  color: black;
+  background-color: #c8142c;
+  color: white;
+  font-weight: bold;
 }
 
 #utterance{
@@ -13,7 +14,26 @@
   justify-content: center;
 }
 
-
 #sub{
-background-color: #b9e99a;
+background-color: #d4d4d4;
+border: #d4d4d4;
+
+}
+
+#pastelb{
+  background-color: #d4d4d4;
+  border:1px solid black;
+  border-radius: 10px;
+  height:50px;
+
+}
+
+#ut{
+  // border:1px solid #20639b;
+  // border-radius: 10px;
+  height:50px;
+  text-align: center;
+  margin-top:10px;
+  margin-bottom: 10px;
+  line-height: 50px;
 }

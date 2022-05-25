@@ -22,7 +22,7 @@ export class FulfillmentService {
     private defaultMessage: string;
 
     constructor() {
-        this.defaultMessage = 'Press \'ask a question\' button';
+        this.defaultMessage = 'Press \'ask a question\' button (Utterance)';
         this.matches = [];
         this.fulfillment = {
             UTTERANCE: this.defaultMessage,

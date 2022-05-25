@@ -32,7 +32,7 @@
     How to use?
   </div>
   <div class="card-body">
-      <p>Input a question either by text or voice and get a response with product recommendations. Test by asking: "What is the best loan for someone with a 650 credit score?" </p>
+      <p>Input a question either by text or voice and get a response with product recommendations. Test by asking: "Which loan is best for... ?" </p>
   </div>
 </div>
 
@@ -59,11 +59,13 @@
     Ask your question by voice!
   </div>
   <div class="card-body">
-    <button type="button" class="btn btn-info w-100">
+    <button id = "pastelb" type="button" class="btn btn-info w-100">
       <app-microphone [waveform]="waveform"></app-microphone>
     </button>
+  <div id="ut">
     <p id=utterance ><app-waveform #waveform></app-waveform></p>
-    <button type="button" class="btn btn-info w-100" (click)="onReset();">
+  </div>
+    <button id="pastelb" type="button" class="btn btn-info w-100" (click)="onReset();">
       Ask a new question
     </button>
   </div>
