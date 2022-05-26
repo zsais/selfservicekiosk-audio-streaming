@@ -1,0 +1,49 @@
+#how-to{
+  background-color: #c8142c;
+  color: white;
+  font-weight: bold;
+}
+
+.card{
+  margin-top: 25px;
+}
+
+#utterance{
+  align-items: center;
+}
+
+#headerimg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sub{
+background-color: #d4d4d4;
+border: #d4d4d4;
+
+}
+
+#pastelb{
+  background-color: #d4d4d4;
+  border:1px solid black;
+  border-radius: 10px;
+  height:50px;
+
+}
+
+#body{
+max-width: 700px;
+margin:auto;
+align-items: center;
+}
+
+#ut{
+  // border:1px solid #20639b;
+  // border-radius: 10px;
+  height:50px;
+  text-align: center;
+  margin-top:10px;
+  margin-bottom: 10px;
+  line-height: 50px;
+}
