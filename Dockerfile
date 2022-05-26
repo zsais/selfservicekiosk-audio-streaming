@@ -38,6 +38,7 @@ COPY server/translate.ts ./server/
 WORKDIR /usr/src/app/client
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 RUN npm install typescript@">=3.5.0 <3.6.0" --save-dev --save-exact
+RUN npm install bootstrap
 RUN npm install --force
 RUN npm run-script build
 
