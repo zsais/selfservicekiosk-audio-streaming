@@ -51,9 +51,9 @@
     Ask your question by voice!
   </div>
   <div class="card-body">
-    <button id = "pastelb" type="button" class="btn btn-info w-100">
+
       <app-microphone [waveform]="waveform"></app-microphone>
-    </button>
+
   <div id="ut">
     <app-waveform #waveform></app-waveform>
   </div>
@@ -62,6 +62,13 @@
     </button>
   </div>
 </div>
+<div class="card">
+  <div id = how-to class="card-header">
+    Answer
+  </div>
+  <div class="card-body">
+    <p></p>
+  </div>
 
 
 </div>
@@ -69,7 +76,7 @@
 
 
 
-<div class="wrapper">
+<div class="wrapper" style = "visibility: hidden;">
   <div class="flex-grid-parts">
     <div class="inner">
       <div class="col side">
