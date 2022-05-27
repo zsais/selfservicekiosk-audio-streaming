@@ -3,9 +3,13 @@ substitutions:
   _REPOSITORY: rm-workshop
   _IMAGE: rm-frontend
 steps:
+# Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME', '.' ]
-  # Deploy container image to Cloud Run
+# Push the container image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME']
+# Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['run', 'deploy', '${_IMAGE}-$BRANCH_NAME', '--image', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME', 
