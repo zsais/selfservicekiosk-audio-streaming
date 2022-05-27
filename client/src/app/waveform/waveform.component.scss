@@ -6,3 +6,20 @@
   height: 60px;
   margin-bottom:10px;
 }
+.visualizer {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  background: #1a1a1a;
+  border: 1px solid #000;
+  box-shadow: 2px rgba(0,0,0,1);
+  border-radius: 10px;
+}
+
+.utterance {
+  display: block;
+  position: relative;
+  left: 0;
+  font-style: italic;
+  text-align: center;
+}
