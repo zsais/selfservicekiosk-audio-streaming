@@ -51,9 +51,10 @@ export class Dialogflow {
   */
   public setupDialogflow() {
       this.sessionId = uuid.v4();
-      const client = new SessionsClient();
+      this.sessionClient = new SessionsClient();
+    //   const client = new SessionsClient();
     //   this.sessionClient = new df.SessionsClient();
-      this.sessionPath = client.projectLocationAgentSessionPath(
+      this.sessionPath = this.sessionClient.projectLocationAgentSessionPath(
         projectId,
         location,
         agentId,
