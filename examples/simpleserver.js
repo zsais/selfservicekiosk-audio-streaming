@@ -79,7 +79,7 @@ const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 // set some server variables
 const app = express();
 var server;
-var sessionId, sessionClient, sessionPath, request;
+var sessionId, sessionPath, request;
 var speechClient, requestSTT, ttsClient, requestTTS, mediaTranslationClient, requestMedia;
 
 // STT demo
@@ -90,6 +90,8 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 
 // Media Translation Demo
 const mediatranslation = require('@google-cloud/media-translation');
+
+const sessionClient = new SessionsClient();
 
 /**
  * Setup Express Server with CORS and SocketIO
@@ -197,10 +199,10 @@ function setupDialogflow(){
     sessionId = uuid.v4();
     // Dialogflow will need a DF Session Client
     // So each DF session is unique
-    sessionClient = new SessionsClient();
+    // sessionClient = new SessionsClient();
     // Create a session path from the Session client, 
     // which is a combination of the projectId and sessionId.
-    sessionPath = sessionClient.client.projectLocationAgentSessionPath(
+    sessionPath = sessionClient.projectLocationAgentSessionPath(
         projectId,
         location,
         agentId,

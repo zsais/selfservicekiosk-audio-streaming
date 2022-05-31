@@ -21,13 +21,13 @@ import * as pb from 'pb-util';
 
 const df = require('dialogflow').v3beta1;
 
-// const projectId = 'rm-workshop';
-// const location = 'global';
-// const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
+const projectId = 'rm-workshop';
+const location = 'global';
+const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
 // const query = 'Hello, How can I get a loan?';
-// const languageCode = 'en'
+const languageCode = 'en'
 
-// const {SessionsClient} = require('@google-cloud/dialogflow-cx');
+const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 // const client = new SessionsClient();
 
 dotenv.config();
@@ -51,9 +51,15 @@ export class Dialogflow {
   */
   public setupDialogflow() {
       this.sessionId = uuid.v4();
-      this.sessionClient = new df.SessionsClient();
-      this.sessionPath = this.sessionClient.sessionPath(this.projectId, this.sessionId);
-      
+      const client = new SessionsClient();
+    //   this.sessionClient = new df.SessionsClient();
+      this.sessionPath = client.projectLocationAgentSessionPath(
+        projectId,
+        location,
+        agentId,
+        this.sessionId
+      );
+
       this.request = {
         session: this.sessionPath,
         queryInput: {
