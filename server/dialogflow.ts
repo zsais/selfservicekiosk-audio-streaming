@@ -149,6 +149,7 @@ export class Dialogflow {
     //   console.log(json);
     //   return json;
     // }
+    return " "
   }
 }
 
