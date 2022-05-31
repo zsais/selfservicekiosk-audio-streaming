@@ -81,16 +81,26 @@ export class Dialogflow {
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
     const responses = await this.sessionClient.detectIntent(this.request);
-    console.log(text)
-    console.log("RESPONSES:")
-    console.log(responses)
-    // const [response] = await this.sessionClient.detectIntent(text);
-    // console.log('User Query: ${query}');
-    // for (const message of response.queryResult.responseMessages) {
-    //     if (message.text) {
-    //     console.log('Agent Response: ${message.text.text}');
-    //     }
-    // }
+    console.log('Question asked: ${text}')
+    
+    const [response1] = await this.sessionClient.detectIntent(this.request);
+
+
+    console.log(`User Query: ${text}`);
+        for (const message of response1.queryResult.responseMessages) {
+            if (message.text) {
+            console.log(`Agent Response: ${message.text.text}`);
+            }
+        }
+        if (response1.queryResult.match.intent) {
+            console.log(
+            `Matched Intent: ${response1.queryResult.match.intent.displayName}`
+            );
+        }
+        console.log(
+            `Current Page: ${response1.queryResult.currentPage.displayName}`
+        );
+
     return this.getHandleResponses(responses);
   }
    
@@ -102,7 +112,10 @@ export class Dialogflow {
   * @param cb Callback function to send results
   */
   public getHandleResponses(responses: any): any {
-    console.log(responses[0])
+    // console.log(responses[0])
+    console.log('RESULT: ${responses[0].queryResult}')
+    // console.log('FULFILLMENT: ${responses.intent.displayName}')
+
     var json:DF_RESULT = {};
     var result = responses[0].queryResult;
 
