@@ -89,7 +89,12 @@ export class Dialogflow {
         PARAMETERS,
         PAYLOAD
       }
-      //console.log(json);
+        console.log(json);
+        console.log(INTENT_NAME);
+        console.log(PARAMETERS);
+        console.log(FULFILLMENT_TEXT);
+        console.log(PAYLOAD);
+
       return json;
     }
   }
