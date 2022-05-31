@@ -77,28 +77,6 @@ export class Dialogflow {
   */
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
-
-    // const sessionId = Math.random().toString(36).substring(7);
-    // const sessionPath = client.projectLocationAgentSessionPath(
-    //   projectId,
-    //   location,
-    //   agentId,
-    //   sessionId
-    // );
-
-    
-    // console.info(sessionPath);
-    // const request = {
-    //     session: sessionPath,
-    //     queryInput: {
-    //       text: {
-    //         text: query,
-    //       },
-    //       languageCode,
-    //     },
-    //   };
-    
-
     const responses = await this.sessionClient.detectIntent(this.request);
     return this.getHandleResponses(responses);
   }
@@ -110,6 +88,7 @@ export class Dialogflow {
   * @param cb Callback function to send results
   */
   public getHandleResponses(responses: any): any {
+    console.log(responses)
     var json:DF_RESULT = {};
     var result = responses[0].queryResult;
 
@@ -127,7 +106,7 @@ export class Dialogflow {
         PARAMETERS,
         PAYLOAD
       }
-      //console.log(json);
+      console.log(json);
       return json;
     }
   }
