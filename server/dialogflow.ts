@@ -81,10 +81,8 @@ export class Dialogflow {
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
     const responses = await this.sessionClient.detectIntent(this.request);
-    console.log('Question asked: ${text}')
     
     const [response1] = await this.sessionClient.detectIntent(this.request);
-
 
     console.log(`User Query: ${text}`);
         for (const message of response1.queryResult.responseMessages) {
@@ -101,7 +99,7 @@ export class Dialogflow {
             `Current Page: ${response1.queryResult.currentPage.displayName}`
         );
 
-    return this.getHandleResponses(responses);
+    return this.getHandleResponses(response1);
   }
    
   // pick message.text.text
@@ -111,22 +109,27 @@ export class Dialogflow {
   * @param responses protobuf
   * @param cb Callback function to send results
   */
-  public getHandleResponses(responses: any): any {
+  public getHandleResponses(response1: any): any {
     // console.log(responses[0])
-    console.log('RESULT: ${responses[0].queryResult}')
+    // console.log('RESULT: ${responses[0].queryResult}')
     // console.log('FULFILLMENT: ${responses.intent.displayName}')
 
     var json:DF_RESULT = {};
-    var result = responses[0].queryResult;
+    // var result = responses[0].queryResult;
 
-    if (result && result.intent) {
-      const INTENT_NAME = result.intent.displayName;
-      const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
-      const FULFILLMENT_TEXT = result.fulfillmentText;
+
+    
+    if (response1 && response1.queryResult.currentPage.displayName) {
+      const INTENT_NAME = response1.queryResult.currentPage.displayName;
+      const FULFILLMENT_TEXT = response1[0].queryResult.responseMessages;
+
+      const PARAMETERS = JSON.stringify(pb.struct.decode(response1.queryResult.parameters));
       var PAYLOAD = "";
-      if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
-        PAYLOAD = JSON.stringify(pb.struct.decode(result.fulfillmentMessages[0].payload));
+      
+      if(FULFILLMENT_TEXT && response1[0].queryResult.responseMessages.payload){
+        PAYLOAD = JSON.stringify(pb.struct.decode(response1[0].queryResult.responseMessages.payload));
       }
+
       json = {
         INTENT_NAME,
         FULFILLMENT_TEXT,
