@@ -1,0 +1,20 @@
+substitutions:
+  _LOCATION: us-central1
+  _REPOSITORY: rm-workshop
+  _IMAGE: rm-frontend
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME', '.' ]
+# Push the container image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', '${_IMAGE}-$BRANCH_NAME', '--image', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME', 
+  '--region', '${_LOCATION}',
+  '--update-env-vars', 'PROJECT_ID=$PROJECT_ID,LANGUAGE_CODE=en-US,ENCODING=AUDIO_ENCODING_LINEAR_16,SAMPLE_RATE_HERZ=16000,SINGLE_UTTERANCE=false,SPEECH_ENCODING=LINEAR16,SSML_GENDER=MALE']
+images:
+- '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}-$BRANCH_NAME'
+timeout: 900s
