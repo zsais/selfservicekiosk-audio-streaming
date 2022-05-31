@@ -197,7 +197,7 @@ function setupDialogflow(){
     sessionId = uuid.v4();
     // Dialogflow will need a DF Session Client
     // So each DF session is unique
-    sessionClient = new df.SessionsClient();
+    sessionClient = new SessionsClient();
     // Create a session path from the Session client, 
     // which is a combination of the projectId and sessionId.
     sessionPath = sessionClient.client.projectLocationAgentSessionPath(
