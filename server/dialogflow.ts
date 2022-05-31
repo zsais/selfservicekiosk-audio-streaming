@@ -117,18 +117,23 @@ export class Dialogflow {
     var json:DF_RESULT = {};
     // var result = responses[0].queryResult;
 
-
-    
     if (response1 && response1.queryResult.currentPage.displayName) {
-      const INTENT_NAME = response1.queryResult.currentPage.displayName;
-      const FULFILLMENT_TEXT = response1[0].queryResult.responseMessages;
+      const INTENT_NAME = response1.queryResult.match.intent.displayName
+      console.log(`INTENT NAME: ${INTENT_NAME}`);
+      
+      const FULFILLMENT_TEXT = response1.queryResult.responseMessages
 
+      console.log(`Agent Response: ${FULFILLMENT_TEXT}`);
+        
       const PARAMETERS = JSON.stringify(pb.struct.decode(response1.queryResult.parameters));
       var PAYLOAD = "";
       
-      if(FULFILLMENT_TEXT && response1[0].queryResult.responseMessages.payload){
-        PAYLOAD = JSON.stringify(pb.struct.decode(response1[0].queryResult.responseMessages.payload));
+      if(FULFILLMENT_TEXT && response1.queryResult.responseMessages.payload){
+        PAYLOAD = JSON.stringify(pb.struct.decode(response1.queryResult.responseMessages.payload));
       }
+
+      console.log(`PAYLOAD: ${PAYLOAD}`);
+      console.log(`PARAMETERS: ${PARAMETERS}`);
 
       json = {
         INTENT_NAME,
@@ -136,6 +141,8 @@ export class Dialogflow {
         PARAMETERS,
         PAYLOAD
       }
+
+      console.log("JSON:")
       console.log(json);
       return json;
     }
