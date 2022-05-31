@@ -85,7 +85,7 @@ export class Dialogflow {
     console.log("RESPONSES:")
     console.log(responses)
 
-    const [response] = await this.sessionClient.detectIntent(text);
+    const [response] = await this.sessionClient.detectIntent(this.request);
     console.log(`User Query: ${text}`);
 
     for (const message of response.queryResult.responseMessages) {
@@ -126,13 +126,14 @@ export class Dialogflow {
 
     const FULFILLMENT_TEXT = responses.queryResult.responseMessages[0].text.text;
     const INTENT_NAME = responses.queryResult.match.intent.displayName;
+    const PARAMETERS = JSON.stringify(pb.struct.decode(responses.queryResult.parameters));
 
     console.log(FULFILLMENT_TEXT)
     console.log(INTENT_NAME)
 
     if (result && result.intent) {
     //   const INTENT_NAME = result.intent.displayName;
-      const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
+    //   const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
     //   const FULFILLMENT_TEXT = result.fulfillmentText;
       var PAYLOAD = "";
       if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
