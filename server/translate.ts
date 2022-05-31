@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 
-const { TranslationServiceClient } = require("@google-cloud/translate");
+const {TranslationServiceClient} = require('@google-cloud/translate').v3;
 
 interface LooseObject {
     [key: string]: any
@@ -23,7 +23,7 @@ export class Translate {
         this.translationClient = new TranslationServiceClient();
 
         this.request = {
-            parent: `projects/${this.projectId}/locations/us-central1`,
+            parent: `rm-workshop`,
             mimeType: 'text/plain' // mime types: text/plain, text/html
         };
     }
