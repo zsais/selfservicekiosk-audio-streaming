@@ -80,78 +80,71 @@ export class Dialogflow {
   */
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
+    const responses = await this.sessionClient.detectIntent(this.request);
     
-    const [response1] = await this.sessionClient.detectIntent(this.request);
+    console.log("RESPONSES:")
+    console.log(responses)
 
+    const [response] = await this.sessionClient.detectIntent(text);
     console.log(`User Query: ${text}`);
-        for (const message of response1.queryResult.responseMessages) {
-            if (message.text) {
-            console.log(`Agent Response: ${message.text.text}`);
-            }
+
+    for (const message of response.queryResult.responseMessages) {
+        if (message.text) {
+          console.log(`Agent Response: ${message.text.text}`);
         }
-        if (response1.queryResult.match.intent) {
-            console.log(
-            `Matched Intent: ${response1.queryResult.match.intent.displayName}`
-            );
-        }
+      }
+      if (response.queryResult.match.intent) {
         console.log(
-            `Current Page: ${response1.queryResult.currentPage.displayName}`
+          `Matched Intent: ${response.queryResult.match.intent.displayName}`
         );
+      }
+      console.log(
+        `Current Page: ${response.queryResult.currentPage.displayName}`
+      );
 
+    console.log("response::")
+    console.log(response)
 
-    return this.getHandleResponses(response1);
+    return this.getHandleResponses(response);
   }
    
   // pick message.text.text
 
-   /*
+  /*
   * Handle Dialogflow response objects
   * @param responses protobuf
   * @param cb Callback function to send results
   */
- public getHandleResponses(responses: any): any {
+  public getHandleResponses(responses: any): any {
+    console.log(responses)
+
     var json:DF_RESULT = {};
-    var result = responses.queryResult;
-    
-    console.log("RESULT");
+    var result = responses[0].queryResult;
+
+    console.log("RESULT::")
     console.log(result)
-    const INTENT_NAME = result.match.intent.displayName;
 
-    console.log(`Intent Name: ${result.match.intent.displayName}`)
+    const FULFILLMENT_TEXT = responses.queryResult.responseMessages[0].text.text;
+    const INTENT_NAME = responses.queryResult.match.intent.displayName;
 
-    const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
-    console.log(`Parameters ${PARAMETERS}`)
-    
+    console.log(FULFILLMENT_TEXT)
+    console.log(INTENT_NAME)
 
-
-    const FULFILLMENT_TEXT = result.responseMessages[0].text.text
-
-    console.log(`full ${FULFILLMENT_TEXT}`)
-    var PAYLOAD = "";
-    PAYLOAD = JSON.stringify(pb.struct.decode(result.responseMessages[0].payload));
-    
-    console.log(`payload ${PAYLOAD}`)
-    // if (result && result.match.intent) {
-    //   const INTENT_NAME = result.match.intent.displayName;
-
-    //   console.log(INTENT_NAME)
-    //   const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
-    //   console.log(PARAMETERS)
+    if (result && result.intent) {
+    //   const INTENT_NAME = result.intent.displayName;
+      const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
     //   const FULFILLMENT_TEXT = result.fulfillmentText;
-    //   console.log(FULFILLMENT_TEXT)
-    //   var PAYLOAD = "";
-    //   if(result.responseMessages[0] && result.responseMessages[0].payload){
-    //     PAYLOAD = JSON.stringify(pb.struct.decode(result.responseMessages[0].payload));
-    //   }
-    //   console.log(PAYLOAD)
-
-    //   json = {
-    //     INTENT_NAME,
-    //     FULFILLMENT_TEXT,
-    //     PARAMETERS,
-    //     PAYLOAD
-    //   }
-    //   console.log(json);
+      var PAYLOAD = "";
+      if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
+        PAYLOAD = JSON.stringify(pb.struct.decode(result.fulfillmentMessages[0].payload));
+      }
+      json = {
+        INTENT_NAME,
+        FULFILLMENT_TEXT,
+        PARAMETERS,
+        PAYLOAD
+      }
+      console.log(json);
       return json;
     }
   }
