@@ -102,6 +102,9 @@ export class Dialogflow {
     console.log("1:")
     console.log(response1)
 
+    console.log("2:")
+    console.log(response1[0])
+
     return this.getHandleResponses(responses);
   }
    
@@ -115,7 +118,7 @@ export class Dialogflow {
  public getHandleResponses(responses: any): any {
     var json:DF_RESULT = {};
     var result = responses[0].queryResult;
-    
+
     console.log("RESULT")
     console.log(result)
 
