@@ -18,8 +18,18 @@
 import * as dotenv from 'dotenv';
 import * as uuid from 'uuid';
 import * as pb from 'pb-util';
+import { text } from 'express';
 
-const df = require('dialogflow').v2beta1;
+const df = require('dialogflow').v3beta1;
+
+const projectId = 'rm-workshop';
+const location = 'global';
+const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
+const query = 'Hello, How can I get a loan?';
+const languageCode = 'en'
+
+const {SessionsClient} = require('@google-cloud/dialogflow-cx');
+// const client = new SessionsClient();
 
 dotenv.config();
 
@@ -42,15 +52,23 @@ export class Dialogflow {
   */
   public setupDialogflow() {
       this.sessionId = uuid.v4();
-      this.sessionClient = new df.SessionsClient();
-      this.sessionPath = this.sessionClient.sessionPath(this.projectId, this.sessionId);
-      
+      this.sessionClient = new SessionsClient();
+    //   const client = new SessionsClient();
+    //   this.sessionClient = new df.SessionsClient();
+      this.sessionPath = this.sessionClient.projectLocationAgentSessionPath(
+        projectId,
+        location,
+        agentId,
+        this.sessionId
+      );
+
       this.request = {
         session: this.sessionPath,
         queryInput: {
           text: {
-            languageCode: this.languageCode
-          }
+              text: query,
+          },
+          languageCode
         }
       }
   }
@@ -63,27 +81,38 @@ export class Dialogflow {
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
     const responses = await this.sessionClient.detectIntent(this.request);
-    return this.getHandleResponses(responses);
-  }
 
-  /*
-  * Handle Dialogflow response objects
-  * @param responses protobuf
-  * @param cb Callback function to send results
-  */
-  public getHandleResponses(responses: any): any {
     var json:DF_RESULT = {};
-    var result = responses[0].queryResult;
+    
+    // console.log("RESPONSES:")
+    // console.log(responses)
 
-    if (result && result.intent) {
-      const INTENT_NAME = result.intent.displayName;
-      const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
-      const FULFILLMENT_TEXT = result.fulfillmentText;
-      var PAYLOAD = "";
-      if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
-        PAYLOAD = JSON.stringify(pb.struct.decode(result.fulfillmentMessages[0].payload));
+    const [response] = await this.sessionClient.detectIntent(this.request);
+    console.log(`User Query: ${text}`);
+
+    var FULFILLMENT_TEXT = "a"
+
+    for (const message of response.queryResult.responseMessages) {
+        if (message.text) {
+          console.log(`Agent Response: ${message.text.text}`);
+          FULFILLMENT_TEXT = message.text.text;
+        }
       }
-      json = {
+      if (response.queryResult.match.intent) {
+        console.log(
+          `Matched Intent: ${response.queryResult.match.intent.displayName}`
+        );
+      }
+      console.log(
+        `Current Page: ${response.queryResult.currentPage.displayName}`
+      );
+
+    console.log("response::")
+    console.log(response)
+
+    const INTENT_NAME = response.queryResult.currentPage.displayName;
+
+    json = {
         INTENT_NAME,
         FULFILLMENT_TEXT,
         PARAMETERS,
@@ -104,8 +133,6 @@ declare interface DF_RESULT {
   INTENT_NAME?: string,
   FULFILLMENT_TEXT?: string,
   TRANSLATED_FULFILLMENT?: string,
-  PARAMETERS?: any,
-  PAYLOAD?: any
 }
 
 export let dialogflow = new Dialogflow();

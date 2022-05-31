@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 
-const { TranslationServiceClient } = require("@google-cloud/translate");
+const {TranslationServiceClient} = require('@google-cloud/translate').v3;
 
 interface LooseObject {
     [key: string]: any

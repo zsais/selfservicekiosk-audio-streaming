@@ -48,7 +48,7 @@ export class MicrophoneComponent {
       me.eventService.resetInterface.subscribe(() => {
         me.onStop(); // stop recording & waveform
         me.eventService.audioStopping.emit(); // stop playing audio
-        me.reset(); // reset the interface
+        // me.reset(); // reset the interface
       });
     }
 
@@ -109,7 +109,7 @@ export class MicrophoneComponent {
       this.waveform.stop();
     }
 
-    reset() {
-      this.fulfillmentService.clearAll();
-    }
+    // reset() {
+    //   this.fulfillmentService.clearAll();
+    // }
 }

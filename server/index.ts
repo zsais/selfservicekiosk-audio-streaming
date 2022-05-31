@@ -95,6 +95,8 @@ console.log()
             console.log(`Client connected [id=${client.id}]`);
             client.emit('server_setup', `Server connected [id=${client.id}]`);
 
+            console.log("hola 1")
+
             // simple DF detectIntent call
             ss(client).on('stream-speech', async function (stream: any, data: any) {
                 // get the file name
@@ -108,7 +110,7 @@ console.log()
                     // console.log(transcribeObj.words[0].speakerTag);
                     // don't want to transcribe the tts output
                     // if(transcribeObj.words[0].speakerTag > 1) return;
-
+                    console.log("hola 2")
                     me.socketClient.emit('transcript', transcribeObj.transcript);
                 
                     // translate the transcript if the target language is not the same 
@@ -119,22 +121,25 @@ console.log()
                         response = response.translatedText;
                     }
 
+                    console.log("hola 3")
+
                     // Match the intent
                     const intentMatch = await dialogflow.detectIntent(response);
                         
                     // translate the fulfillment text if the target language is not the same
                     // as the Dialogflow base language.
                     let intentResponse = intentMatch.FULFILLMENT_TEXT;
-                    if (targetLang != me.baseLang){
-                        intentResponse = await translate.translate(intentMatch.FULFILLMENT_TEXT, targetLang);
-                        intentResponse = intentResponse.translatedText;
-                        intentMatch.TRANSLATED_FULFILLMENT = intentResponse;
-                        //console.log(intentMatch);
-                        me.socketClient.emit('results', intentMatch);
-                    } else {
-                        intentMatch.TRANSLATED_FULFILLMENT = intentMatch.FULFILLMENT_TEXT;
-                        me.socketClient.emit('results', intentMatch);
-                    }
+
+                    console.log("hola 4")
+                    console.log(intentMatch.FULFILLMENT_TEXT)
+                    console.log(intentResponse)
+
+                    
+                    intentMatch.TRANSLATED_FULFILLMENT = intentMatch.FULFILLMENT_TEXT;
+                    console.log("no translate")
+                    me.socketClient.emit('results', intentMatch);
+                    
+                    console.log("hola 5")
 
                     // TTS the answer
                     speech.textToSpeech(intentResponse, targetLang).then(function(audio: AudioBuffer){
