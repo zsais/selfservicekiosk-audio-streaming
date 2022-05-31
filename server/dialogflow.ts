@@ -116,6 +116,7 @@ export class Dialogflow {
 
     var json:DF_RESULT = {};
     // var result = responses[0].queryResult;
+    console.log(`Query Results: ${response1.queryResult}`);
 
     if (response1 && response1.queryResult.currentPage.displayName) {
       const INTENT_NAME = response1.queryResult.match.intent.displayName
@@ -129,7 +130,8 @@ export class Dialogflow {
       var PAYLOAD = "";
       
       if(FULFILLMENT_TEXT && response1.queryResult.responseMessages.payload){
-        PAYLOAD = JSON.stringify(pb.struct.decode(response1.queryResult.responseMessages.payload));
+        // PAYLOAD = JSON.stringify(pb.struct.decode(response1.queryResult.responseMessages.payload));
+        PAYLOAD = JSON.stringify(pb.struct.decode(response1.queryResult.responseMessages[0].payload));
       }
 
       console.log(`PAYLOAD: ${PAYLOAD}`);
