@@ -21,7 +21,13 @@ const projectId = process.env.npm_config_PROJECT_ID;
 const example = process.env.npm_config_EXAMPLE;
 const port = ( process.env.npm_config_PORT || 3000 );
 
-const languageCode = 'en-US';
+// const languageCode = 'en-US';
+const projectId = 'rm-workshop';
+const location = 'global';
+const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
+const languageCode = 'en'
+
+
 let encoding = 'AUDIO_ENCODING_LINEAR_16';
 if(example > 3){
   // NOTE: ENCODING NAMING FOR SPEECH API IS DIFFERENT
@@ -66,7 +72,9 @@ const uuid = require('uuid');
 const util = require('util');
 const { Transform, pipeline } = require('stream');
 const pump = util.promisify(pipeline);
-const df = require('dialogflow').v2beta1;
+const df = require('dialogflow').v3beta1;
+
+const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 
 // set some server variables
 const app = express();
@@ -192,7 +200,12 @@ function setupDialogflow(){
     sessionClient = new df.SessionsClient();
     // Create a session path from the Session client, 
     // which is a combination of the projectId and sessionId.
-    sessionPath = sessionClient.sessionPath(projectId, sessionId);
+    sessionPath = sessionClient.client.projectLocationAgentSessionPath(
+        projectId,
+        location,
+        agentId,
+        sessionId
+      );
 
     // Create the initial request object
     // When streaming, this is the first call you will

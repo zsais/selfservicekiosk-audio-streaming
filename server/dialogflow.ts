@@ -19,7 +19,7 @@ import * as dotenv from 'dotenv';
 import * as uuid from 'uuid';
 import * as pb from 'pb-util';
 
-const df = require('dialogflow').v2beta1;
+const df = require('dialogflow').v3beta1;
 
 // const projectId = 'rm-workshop';
 // const location = 'global';
