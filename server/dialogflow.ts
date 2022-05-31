@@ -99,43 +99,39 @@ export class Dialogflow {
             `Current Page: ${response1.queryResult.currentPage.displayName}`
         );
 
-    return this.getHandleResponses(response1);
+    console.log("1:")
+    console.log(response1)
+
+    return this.getHandleResponses(responses);
   }
    
   // pick message.text.text
 
-  /*
+   /*
   * Handle Dialogflow response objects
   * @param responses protobuf
   * @param cb Callback function to send results
   */
-  public getHandleResponses(response1: any): any {
-    // console.log(responses[0])
-    // console.log('RESULT: ${responses[0].queryResult}')
-    // console.log('FULFILLMENT: ${responses.intent.displayName}')
-
+ public getHandleResponses(responses: any): any {
     var json:DF_RESULT = {};
-    // var result = responses[0].queryResult;
-    console.log(`Query Results: ${response1.queryResult}`);
+    var result = responses[0].queryResult;
+    
+    console.log("RESULT")
+    console.log(result)
 
-    if (response1 && response1.queryResult.currentPage.displayName) {
-      const INTENT_NAME = response1.queryResult.match.intent.displayName
-      console.log(`INTENT NAME: ${INTENT_NAME}`);
-      
-      const FULFILLMENT_TEXT = response1.queryResult.responseMessages
+    if (result && result.intent) {
+      const INTENT_NAME = result.match.intent.displayName;
 
-      console.log(`Agent Response: ${FULFILLMENT_TEXT}`);
-        
-      const PARAMETERS = JSON.stringify(pb.struct.decode(response1.queryResult.parameters));
+      console.log(INTENT_NAME)
+      const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
+      console.log(PARAMETERS)
+      const FULFILLMENT_TEXT = result.fulfillmentText;
+      console.log(FULFILLMENT_TEXT)
       var PAYLOAD = "";
-      
-      if(FULFILLMENT_TEXT && response1.queryResult.responseMessages.payload){
-        // PAYLOAD = JSON.stringify(pb.struct.decode(response1.queryResult.responseMessages.payload));
-        PAYLOAD = JSON.stringify(pb.struct.decode(response1.queryResult.responseMessages[0].payload));
+      if(result.responseMessages[0] && result.responseMessages[0].payload){
+        PAYLOAD = JSON.stringify(pb.struct.decode(result.responseMessages[0].payload));
       }
-
-      console.log(`PAYLOAD: ${PAYLOAD}`);
-      console.log(`PARAMETERS: ${PARAMETERS}`);
+      console.log(PAYLOAD)
 
       json = {
         INTENT_NAME,
@@ -143,9 +139,7 @@ export class Dialogflow {
         PARAMETERS,
         PAYLOAD
       }
-
-      console.log("JSON:")
-      console.log(json);
+      //console.log(json);
       return json;
     }
   }
