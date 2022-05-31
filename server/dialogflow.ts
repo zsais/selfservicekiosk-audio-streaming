@@ -80,10 +80,19 @@ export class Dialogflow {
   */
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
-    const responses = await this.sessionClient.detectIntent(this.request);
-    return this.getHandleResponses(responses);
+    // const responses = await this.sessionClient.detectIntent(this.request);
+
+    const [response] = await this.sessionClient.detectIntent(text);
+    console.log('User Query: ${query}');
+    for (const message of response.queryResult.responseMessages) {
+        if (message.text) {
+        console.log('Agent Response: ${message.text.text}');
+        }
+    }
+    return this.getHandleResponses(response[0]);
   }
    
+  // pick message.text.text
 
   /*
   * Handle Dialogflow response objects
