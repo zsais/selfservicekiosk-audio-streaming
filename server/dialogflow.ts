@@ -80,7 +80,6 @@ export class Dialogflow {
   */
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
-    const responses = await this.sessionClient.detectIntent(this.request);
     
     const [response1] = await this.sessionClient.detectIntent(this.request);
 
@@ -99,13 +98,8 @@ export class Dialogflow {
             `Current Page: ${response1.queryResult.currentPage.displayName}`
         );
 
-    console.log("1:")
-    console.log(response1)
 
-    console.log("2:")
-    console.log(response1[0])
-
-    return this.getHandleResponses(responses);
+    return this.getHandleResponses(response1);
   }
    
   // pick message.text.text
@@ -117,32 +111,47 @@ export class Dialogflow {
   */
  public getHandleResponses(responses: any): any {
     var json:DF_RESULT = {};
-    var result = responses[0].queryResult;
-
-    console.log("RESULT")
+    var result = responses.queryResult;
+    
+    console.log("RESULT");
     console.log(result)
+    const INTENT_NAME = result.match.intent.displayName;
 
-    if (result && result.intent) {
-      const INTENT_NAME = result.match.intent.displayName;
+    console.log(`Intent Name: ${result.match.intent.displayName}`)
 
-      console.log(INTENT_NAME)
-      const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
-      console.log(PARAMETERS)
-      const FULFILLMENT_TEXT = result.fulfillmentText;
-      console.log(FULFILLMENT_TEXT)
-      var PAYLOAD = "";
-      if(result.responseMessages[0] && result.responseMessages[0].payload){
-        PAYLOAD = JSON.stringify(pb.struct.decode(result.responseMessages[0].payload));
-      }
-      console.log(PAYLOAD)
+    const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
+    console.log(`Parameters ${PARAMETERS}`)
+    
 
-      json = {
-        INTENT_NAME,
-        FULFILLMENT_TEXT,
-        PARAMETERS,
-        PAYLOAD
-      }
-      //console.log(json);
+
+    const FULFILLMENT_TEXT = result.responseMessages[0].text.text
+
+    console.log(`full ${FULFILLMENT_TEXT}`)
+    var PAYLOAD = "";
+    PAYLOAD = JSON.stringify(pb.struct.decode(result.responseMessages[0].payload));
+    
+    console.log(`payload ${PAYLOAD}`)
+    // if (result && result.match.intent) {
+    //   const INTENT_NAME = result.match.intent.displayName;
+
+    //   console.log(INTENT_NAME)
+    //   const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
+    //   console.log(PARAMETERS)
+    //   const FULFILLMENT_TEXT = result.fulfillmentText;
+    //   console.log(FULFILLMENT_TEXT)
+    //   var PAYLOAD = "";
+    //   if(result.responseMessages[0] && result.responseMessages[0].payload){
+    //     PAYLOAD = JSON.stringify(pb.struct.decode(result.responseMessages[0].payload));
+    //   }
+    //   console.log(PAYLOAD)
+
+    //   json = {
+    //     INTENT_NAME,
+    //     FULFILLMENT_TEXT,
+    //     PARAMETERS,
+    //     PAYLOAD
+    //   }
+    //   console.log(json);
       return json;
     }
   }
