@@ -18,13 +18,14 @@
 import * as dotenv from 'dotenv';
 import * as uuid from 'uuid';
 import * as pb from 'pb-util';
+import { text } from 'express';
 
 const df = require('dialogflow').v3beta1;
 
 const projectId = 'rm-workshop';
 const location = 'global';
 const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
-// const query = 'Hello, How can I get a loan?';
+const query = 'Hello, How can I get a loan?';
 const languageCode = 'en'
 
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
@@ -65,8 +66,9 @@ export class Dialogflow {
         session: this.sessionPath,
         queryInput: {
           text: {
-            languageCode: this.languageCode
-          }
+              text: query,
+          },
+          languageCode
         }
       }
   }

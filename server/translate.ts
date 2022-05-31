@@ -23,7 +23,7 @@ export class Translate {
         this.translationClient = new TranslationServiceClient();
 
         this.request = {
-            parent: `rm-workshop`,
+            parent: `projects/${this.projectId}/locations/us-central1`,
             mimeType: 'text/plain' // mime types: text/plain, text/html
         };
     }
