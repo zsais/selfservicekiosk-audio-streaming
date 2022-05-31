@@ -81,7 +81,9 @@ export class Dialogflow {
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
     const responses = await this.sessionClient.detectIntent(this.request);
-
+    console.log(text)
+    console.log("RESPONSES:")
+    console.log(responses)
     // const [response] = await this.sessionClient.detectIntent(text);
     // console.log('User Query: ${query}');
     // for (const message of response.queryResult.responseMessages) {
@@ -100,7 +102,7 @@ export class Dialogflow {
   * @param cb Callback function to send results
   */
   public getHandleResponses(responses: any): any {
-    console.log(responses)
+    console.log(responses[0])
     var json:DF_RESULT = {};
     var result = responses[0].queryResult;
 
