@@ -21,14 +21,14 @@ import * as pb from 'pb-util';
 
 const df = require('dialogflow').v2beta1;
 
-const projectId = 'rm-workshop';
-const location = 'global';
-const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
-const query = 'Hello, How can I get a loan?';
-const languageCode = 'en'
+// const projectId = 'rm-workshop';
+// const location = 'global';
+// const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
+// const query = 'Hello, How can I get a loan?';
+// const languageCode = 'en'
 
-const {SessionsClient} = require('@google-cloud/dialogflow-cx');
-const client = new SessionsClient();
+// const {SessionsClient} = require('@google-cloud/dialogflow-cx');
+// const client = new SessionsClient();
 
 dotenv.config();
 
@@ -70,31 +70,30 @@ export class Dialogflow {
   * @param cb Callback function to execute with results
   */
   public async detectIntent(text: string){
-    // this.request.queryInput.text.text = text;
+    this.request.queryInput.text.text = text;
 
-    const sessionId = Math.random().toString(36).substring(7);
-    const sessionPath = client.projectLocationAgentSessionPath(
-      projectId,
-      location,
-      agentId,
-      sessionId
-    );
+    // const sessionId = Math.random().toString(36).substring(7);
+    // const sessionPath = client.projectLocationAgentSessionPath(
+    //   projectId,
+    //   location,
+    //   agentId,
+    //   sessionId
+    // );
 
     
-    console.info(sessionPath);
-    const request = {
-        session: sessionPath,
-        queryInput: {
-          text: {
-            text: query,
-          },
-          languageCode,
-        },
-      };
+    // console.info(sessionPath);
+    // const request = {
+    //     session: sessionPath,
+    //     queryInput: {
+    //       text: {
+    //         text: query,
+    //       },
+    //       languageCode,
+    //     },
+    //   };
     
 
-
-    const responses = await this.sessionClient.detectIntent(request);
+    const responses = await this.sessionClient.detectIntent(this.request);
     return this.getHandleResponses(responses);
   }
    
