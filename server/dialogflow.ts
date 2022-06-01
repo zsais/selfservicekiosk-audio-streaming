@@ -19,6 +19,7 @@ import * as dotenv from 'dotenv';
 import * as uuid from 'uuid';
 import * as pb from 'pb-util';
 import { text } from 'express';
+import { serialize } from 'v8';
 
 const df = require('dialogflow').v3beta1;
 
@@ -93,9 +94,9 @@ export class Dialogflow {
     var FULFILLMENT_TEXT = "a"
 
     console.log("LIST:")
+    var s = response.queryResult.responseMessages.lenght
 
-
-    console.log(response.queryResult.responseMessages[0].text.text)
+    console.log(response.queryResult.responseMessages[s-1].text.text)
 
     for (const message of response.queryResult.responseMessages) {
           console.log(`Agent Response: ${message.text.text}`);
