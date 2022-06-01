@@ -37,7 +37,7 @@
   <div class="card-body">
       <app-microphone [waveform]="waveform"></app-microphone>
     <app-waveform #waveform></app-waveform>
-    <button id = "pastelb" type="button" class="btn mic_button stop_btn" (click)="onReset();">
+    <button id = "pastelb" type="button" (click)="onReset();">
       <span>Next question</span>
     </button>
   </div>
