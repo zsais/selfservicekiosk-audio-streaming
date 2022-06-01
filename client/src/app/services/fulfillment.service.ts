@@ -61,8 +61,8 @@ export class FulfillmentService {
         }
     }
     clearAll() {
-        this.matches = [];
-        this.fulfillment.UTTERANCE = this.defaultMessage;
-        return this.fulfillment.FULFILLMENTS = [];
+        // this.matches = [];
+        // this.fulfillment.UTTERANCE = this.defaultMessage;
+        return this.fulfillment.FULFILLMENTS;
     }
 }

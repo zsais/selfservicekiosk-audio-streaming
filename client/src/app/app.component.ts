@@ -27,7 +27,7 @@ import { IoService } from './services/io.service';
 })
 export class AppComponent {
   public title = 'SelfServiceDesk';
-  private lang = 'en-US';
+  // private lang = 'en-US';
   public isInActive: boolean;
 
   constructor(public eventService: EventService, public ioService: IoService) {
