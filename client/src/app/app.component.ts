@@ -40,6 +40,7 @@ export class AppComponent {
     this.languageSwitch('en-US', null);
   }
 
+
   languageSwitch(lang: string, e: Event) {
     let flags = document.getElementsByClassName('flag');
     for (let i = 0; i < flags.length; i++) {
