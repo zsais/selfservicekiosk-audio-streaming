@@ -110,13 +110,12 @@ export class Dialogflow {
     console.log("response::")
     console.log(response)
 
-    const INTENT_NAME = response.queryResult.match.intent.displayName;
+    const INTENT_NAME = response.queryResult.currentPage.displayName;
     
 
     json = {
         INTENT_NAME,
         FULFILLMENT_TEXT
-
     }
 
     return json
