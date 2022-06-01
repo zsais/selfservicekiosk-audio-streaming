@@ -22,11 +22,11 @@ import { text } from 'express';
 
 const df = require('dialogflow').v3beta1;
 
-const projectId = 'rm-workshop';
+const projectId = process.env.PROJECT_ID;
 const location = 'global';
-const agentId = 'ec76f9c4-c48e-4206-9b35-4e857d0a9fd5';
-const query = 'Hello, How can I get a loan?';
-const languageCode = 'en'
+const agentId = process.env.AGENT_ID;
+const query = 'Hello';
+const languageCode = process.env.LANGUAGE_CODE;
 
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 // const client = new SessionsClient();
@@ -114,20 +114,16 @@ export class Dialogflow {
 
     json = {
         INTENT_NAME,
-        FULFILLMENT_TEXT,
-        PARAMETERS,
-        PAYLOAD
+        FULFILLMENT_TEXT
       }
-        console.log(json);
-        console.log(INTENT_NAME);
-        console.log(PARAMETERS);
-        console.log(FULFILLMENT_TEXT);
-        console.log(PAYLOAD);
+    console.log(json);
+    console.log(INTENT_NAME);
+    console.log(FULFILLMENT_TEXT);
 
-      return json;
-    }
+    return json;
   }
 }
+
 
 declare interface DF_RESULT {
   INTENT_NAME?: string,
