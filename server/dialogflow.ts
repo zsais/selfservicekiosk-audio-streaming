@@ -93,12 +93,17 @@ export class Dialogflow {
     var FULFILLMENT_TEXT = "a"
 
     console.log("LIST:")
+
+    for (const a of response.queryResult.responseMessages[0].text.text ){
+        console.log(a)
+    }
     // console.log(response.queryResult.responseMessages[0].text.text)
 
     for (const message of response.queryResult.responseMessages) {
           console.log(`Agent Response: ${message.text.text}`);
           FULFILLMENT_TEXT = message.text.text;
       }
+
       if (response.queryResult.match.intent) {
         console.log(
           `Matched Intent: ${response.queryResult.match.intent.displayName}`
