@@ -95,7 +95,7 @@ console.log()
             console.log(`Client connected [id=${client.id}]`);
             client.emit('server_setup', `Server connected [id=${client.id}]`);
 
-            console.log("hola 1")
+            
 
             // simple DF detectIntent call
             ss(client).on('stream-speech', async function (stream: any, data: any) {
