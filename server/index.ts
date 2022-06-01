@@ -125,6 +125,7 @@ console.log()
                     // translate the fulfillment text if the target language is not the same
                     // as the Dialogflow base language.
                     let intentResponse = intentMatch.FULFILLMENT_TEXT;
+                    console.log(intentResponse)
                     if (targetLang != me.baseLang){
                         // intentResponse = await translate.translate(intentMatch.FULFILLMENT_TEXT, targetLang);
                         // intentResponse = intentResponse.translatedText;

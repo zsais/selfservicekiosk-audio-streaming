@@ -33,7 +33,9 @@ export class FulfillmentService {
         return this.fulfillment;
     }
     setFulfillments(data) {
-        //console.log(data);
+        console.log("DATA")
+        console.log(data);
+
         if (data == null) {
             return;
         }
