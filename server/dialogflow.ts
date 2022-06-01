@@ -25,7 +25,7 @@ const df = require('dialogflow').v3beta1;
 const projectId = process.env.PROJECT_ID;
 const location = 'global';
 const agentId = process.env.AGENT_ID;
-const query = 'Hello';
+const query = '';
 const languageCode = process.env.LANGUAGE_CODE;
 
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
