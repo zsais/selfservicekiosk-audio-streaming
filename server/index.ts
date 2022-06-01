@@ -124,12 +124,13 @@ console.log()
                         
                     // translate the fulfillment text if the target language is not the same
                     // as the Dialogflow base language.
-                    let intentResponse = intentMatch.FULFILLMENT_TEXT;
+                    // let intentResponse = intentMatch.FULFILLMENT_TEXT;
+                    let intentResponse = "This is working!";
                     if (targetLang != me.baseLang){
-                        intentResponse = await translate.translate(intentMatch.FULFILLMENT_TEXT, targetLang);
-                        intentResponse = intentResponse.translatedText;
+                        // intentResponse = await translate.translate(intentMatch.FULFILLMENT_TEXT, targetLang);
+                        intentResponse = "This is working";
                         intentMatch.TRANSLATED_FULFILLMENT = intentResponse;
-                        //console.log(intentMatch);
+                        console.log(intentMatch);
                         me.socketClient.emit('results', intentMatch);
                     } else {
                         intentMatch.TRANSLATED_FULFILLMENT = intentMatch.FULFILLMENT_TEXT;
