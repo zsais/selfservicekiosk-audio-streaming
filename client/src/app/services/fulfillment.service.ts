@@ -42,20 +42,21 @@ export class FulfillmentService {
         if (data.UTTERANCE) {
             this.fulfillment.UTTERANCE = data.UTTERANCE;
         } else {
-            if (data.PAYLOAD) {
-                let payload = JSON.parse(data.PAYLOAD);
+            // if (data.PAYLOAD) {
+            //     let payload = JSON.parse(data.PAYLOAD);
+            //     this.matches.push({
+            //         QUESTION: payload.QUESTION,
+            //         ANSWER: data.TRANSLATED_FULFILLMENT
+            //         // ANSWER: payload.ANSWER
+            //     });
+            // } else {
+                console.log("falls to else")
                 this.matches.push({
-                    QUESTION: payload.QUESTION,
-                    ANSWER: data.TRANSLATED_FULFILLMENT
-                    // ANSWER: payload.ANSWER
-                });
-            } else {
-                this.matches.push({
-                    QUESTION: data.INTENT_NAME,
+                    // QUESTION: data.INTENT_NAME,
                     ANSWER: data.TRANSLATED_FULFILLMENT,
-                    AUDIO: data.AUDIO
+                    // AUDIO: data.AUDIO
                 });
-            }
+            // }
             this.fulfillment.FULFILLMENTS = this.matches;
         }
     }
