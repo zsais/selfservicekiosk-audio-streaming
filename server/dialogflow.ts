@@ -119,18 +119,18 @@ export class Dialogflow {
     console.log("Made it to here");
     console.log(responses);
 
-    // var json:DF_RESULT = {};
-    // var result = responses[0].queryResult;
+    var json:DF_RESULT = {};
 
-    // console.log("RESULT::")
-    // console.log(result)
 
-    // const FULFILLMENT_TEXT = responses.queryResult.responseMessages[0].text.text;
-    // const INTENT_NAME = responses.queryResult.match.intent.displayName;
-    // const PARAMETERS = JSON.stringify(pb.struct.decode(responses.queryResult.parameters));
+    const FULFILLMENT_TEXT = responses.queryResult.responseMessages[0].text.text;
+    const INTENT_NAME = responses.queryResult.match.intent.displayName;
+    const PARAMETERS = JSON.stringify(pb.struct.decode(responses.queryResult.parameters));
+    var PAYLOAD = JSON.stringify(pb.struct.decode(responses.queryResult.responseMessages[0].payload));
 
-    // console.log(FULFILLMENT_TEXT)
-    // console.log(INTENT_NAME)
+    console.log("FUlfillment")
+    console.log(FULFILLMENT_TEXT)
+    console.log("intent")
+    console.log(INTENT_NAME)
 
     // if (result && result.intent) {
     // //   const INTENT_NAME = result.intent.displayName;
@@ -140,16 +140,14 @@ export class Dialogflow {
     //   if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
     //     PAYLOAD = JSON.stringify(pb.struct.decode(result.fulfillmentMessages[0].payload));
     //   }
-    //   json = {
-    //     INTENT_NAME,
-    //     FULFILLMENT_TEXT,
-    //     PARAMETERS,
-    //     PAYLOAD
-    //   }
-    //   console.log(json);
-    //   return json;
-    // }
-    return " "
+      json = {
+        INTENT_NAME,
+        FULFILLMENT_TEXT,
+        PARAMETERS,
+        PAYLOAD
+      }
+      console.log(json);
+      return json;
   }
 }
 
