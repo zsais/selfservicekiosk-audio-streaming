@@ -131,48 +131,46 @@ export class Dialogflow {
   * @param responses protobuf
   * @param cb Callback function to send results
   */
-  public getHandleResponses(responses: any): any {
-    console.log("Made it to here");
-    console.log(responses);
+//   public getHandleResponses(responses: any): any {
+//     console.log("Made it to here");
+//     console.log(responses);
 
-    var json:DF_RESULT = {};
+//     var json:DF_RESULT = {};
 
 
-    const FULFILLMENT_TEXT = responses.queryResult.responseMessages[0].text.text;
-    const INTENT_NAME = responses.queryResult.match.intent.displayName;
-    const PARAMETERS = JSON.stringify(pb.struct.decode(responses.queryResult.parameters));
-    var PAYLOAD = JSON.stringify(pb.struct.decode(responses.queryResult.responseMessages[0].payload));
+//     const FULFILLMENT_TEXT = responses.queryResult.responseMessages[0].text.text;
+//     const INTENT_NAME = responses.queryResult.match.intent.displayName;
+//     const PARAMETERS = JSON.stringify(pb.struct.decode(responses.queryResult.parameters));
+//     var PAYLOAD = JSON.stringify(pb.struct.decode(responses.queryResult.responseMessages[0].payload));
 
-    console.log("FUlfillment")
-    console.log(FULFILLMENT_TEXT)
-    console.log("intent")
-    console.log(INTENT_NAME)
+//     console.log("FUlfillment")
+//     console.log(FULFILLMENT_TEXT)
+//     console.log("intent")
+//     console.log(INTENT_NAME)
 
-    // if (result && result.intent) {
-    // //   const INTENT_NAME = result.intent.displayName;
-    // //   const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
-    // //   const FULFILLMENT_TEXT = result.fulfillmentText;
-    //   var PAYLOAD = "";
-    //   if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
-    //     PAYLOAD = JSON.stringify(pb.struct.decode(result.fulfillmentMessages[0].payload));
-    //   }
-      json = {
-        INTENT_NAME,
-        FULFILLMENT_TEXT,
-        PARAMETERS,
-        PAYLOAD
-      }
-      console.log(json);
-      return json;
-  }
+//     // if (result && result.intent) {
+//     // //   const INTENT_NAME = result.intent.displayName;
+//     // //   const PARAMETERS = JSON.stringify(pb.struct.decode(result.parameters));
+//     // //   const FULFILLMENT_TEXT = result.fulfillmentText;
+//     //   var PAYLOAD = "";
+//     //   if(result.fulfillmentMessages[0] && result.fulfillmentMessages[0].payload){
+//     //     PAYLOAD = JSON.stringify(pb.struct.decode(result.fulfillmentMessages[0].payload));
+//     //   }
+//       json = {
+//         INTENT_NAME,
+//         FULFILLMENT_TEXT,
+//         PARAMETERS,
+//         PAYLOAD
+//       }
+//       console.log(json);
+//       return json;
+//   }
 }
 
 declare interface DF_RESULT {
   INTENT_NAME?: string,
   FULFILLMENT_TEXT?: string,
   TRANSLATED_FULFILLMENT?: string,
-  PARAMETERS?: any,
-  PAYLOAD?: any
 }
 
 export let dialogflow = new Dialogflow();
