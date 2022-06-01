@@ -29,7 +29,7 @@ const query = '';
 const languageCode = process.env.LANGUAGE_CODE;
 
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
-// const client = new SessionsClient();
+
 
 dotenv.config();
 
