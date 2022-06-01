@@ -92,6 +92,9 @@ export class Dialogflow {
 
     var FULFILLMENT_TEXT = "a"
 
+    console.log("LIST:")
+    console.log(response.queryResult.responseMessages)
+    
     for (const message of response.queryResult.responseMessages) {
         if (message.text) {
           console.log(`Agent Response: ${message.text.text}`);
