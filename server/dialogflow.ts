@@ -94,10 +94,8 @@ export class Dialogflow {
 
     console.log("LIST:")
 
-    for (const a of response.queryResult.responseMessages[0].text.text ){
-        console.log(a)
-    }
-    // console.log(response.queryResult.responseMessages[0].text.text)
+
+    console.log(response.queryResult.responseMessages[0].text.text)
 
     for (const message of response.queryResult.responseMessages) {
           console.log(`Agent Response: ${message.text.text}`);
