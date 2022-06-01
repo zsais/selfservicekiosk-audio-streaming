@@ -81,16 +81,21 @@ export class Dialogflow {
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
     const responses = await this.sessionClient.detectIntent(this.request);
+
+    var json:DF_RESULT = {};
     
-    console.log("RESPONSES:")
-    console.log(responses)
+    // console.log("RESPONSES:")
+    // console.log(responses)
 
     const [response] = await this.sessionClient.detectIntent(this.request);
     console.log(`User Query: ${text}`);
 
+    var FULFILLMENT_TEXT = "a"
+
     for (const message of response.queryResult.responseMessages) {
         if (message.text) {
           console.log(`Agent Response: ${message.text.text}`);
+          FULFILLMENT_TEXT = message.text.text;
         }
       }
       if (response.queryResult.match.intent) {
@@ -105,7 +110,18 @@ export class Dialogflow {
     console.log("response::")
     console.log(response)
 
-    return this.getHandleResponses(response);
+    const INTENT_NAME = response.queryResult.match.intent.displayName;
+    
+
+    json = {
+        INTENT_NAME,
+        FULFILLMENT_TEXT
+
+    }
+
+    return json
+
+    // return this.getHandleResponses(response);
   }
    
   // pick message.text.text
