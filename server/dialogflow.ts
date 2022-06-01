@@ -107,8 +107,8 @@ export class Dialogflow {
         `Current Page: ${response.queryResult.currentPage.displayName}`
       );
 
-    console.log("response::")
-    console.log(response)
+    // console.log("response::")
+    // console.log(response)
 
     const INTENT_NAME = response.queryResult.currentPage.displayName;
 
