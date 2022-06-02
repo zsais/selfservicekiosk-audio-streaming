@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@google-cloud/dialogflow-cx": "^2.15.0",
     "@google-cloud/speech": "^3.5.3",
     "@google-cloud/text-to-speech": "^2.1.0",
     "@google-cloud/translate": "^5.1.4",

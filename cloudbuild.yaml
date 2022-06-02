@@ -2,9 +2,22 @@ substitutions:
   _LOCATION: us-central1
   _REPOSITORY: rm-workshop
   _IMAGE: rm-frontend
+  _AGENT_ID: ec76f9c4-c48e-4206-9b35-4e857d0a9fd5
 steps:
+# Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '.' ]
+# Push the container image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', '${_IMAGE}', '--image', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', 
+  '--region', '${_LOCATION}',
+  '--update-env-vars', 'PROJECT_ID=$PROJECT_ID,AGENT_ID=${_AGENT_ID},LANGUAGE_CODE=en-US,ENCODING=AUDIO_ENCODING_LINEAR_16,SAMPLE_RATE_HERZ=16000,SINGLE_UTTERANCE=false,SPEECH_ENCODING=LINEAR16,SSML_GENDER=MALE']
 images:
 - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}'
 timeout: 900s
+options:
+  machineType: 'E2_HIGHCPU_8'

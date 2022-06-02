@@ -28,22 +28,6 @@
         <p>Input a question either by text or voice and get a response with product recommendations. Test by asking: "Which loan is best for... ?" </p>
     </div>
   </div>
-<!-- Ask text -->
-  <div class="card">
-    <div id = how-to class="card-header">
-      Type your question
-    </div>
-    <div class="card-body">
-      <div class="input-group input-group-sm">
-        <div class="input-group-prepend">
-        </div>
-        <input type="text" class="form-control">
-        <a href="#" id="sub" class="btn btn-primary">
-          <img src="../assets/arrow-right.svg" height="20" width="20">
-        </a>
-      </div>
-    </div>
-  </div>
 
   <!-- Ask speech -->
 <div class="card">
@@ -53,9 +37,10 @@
   <div class="card-body">
       <app-microphone [waveform]="waveform"></app-microphone>
     <app-waveform #waveform></app-waveform>
-    <button id="pastelb" type="button" class="btn btn-info w-100" (click)="onReset();">
-      Ask a new question
+    <button id="pastelb" type="button" class="btn mic_button stop_btn btn-info w-100" (click)="onReset();">
+      Reset the microphone 
     </button>
+
   </div>
 </div>
 <div class="card">

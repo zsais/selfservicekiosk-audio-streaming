@@ -37,6 +37,7 @@ export class MicrophoneComponent {
     public recordAudio: any;
     public startDisabled: boolean;
     public stopDisabled: boolean;
+    public currStream: any;
 
     constructor(public fulfillmentService: FulfillmentService, public ioService: IoService, public eventService: EventService) {
       let me = this;
@@ -60,6 +61,7 @@ export class MicrophoneComponent {
       navigator.mediaDevices.getUserMedia({
           audio: true
       }).then(function(stream: MediaStream) {
+          me.currStream = stream;
           me.recordAudio = RecordRTC(stream, {
               type: 'audio',
               mimeType: 'audio/webm',
@@ -107,6 +109,7 @@ export class MicrophoneComponent {
       // stop audio recorder
       this.recordAudio.stopRecording();
       this.waveform.stop();
+      this.currStream.getTracks()[0].stop();
     }
 
     reset() {
