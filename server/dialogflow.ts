@@ -80,7 +80,7 @@ export class Dialogflow {
   */
   public async detectIntent(text: string){
     this.request.queryInput.text.text = text;
-    const responses = await this.sessionClient.detectIntent(this.request);
+    // const responses = await this.sessionClient.detectIntent(this.request);
 
     var json:DF_RESULT = {};
     

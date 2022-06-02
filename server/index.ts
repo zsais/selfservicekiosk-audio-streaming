@@ -95,7 +95,7 @@ console.log()
             console.log(`Client connected [id=${client.id}]`);
             client.emit('server_setup', `Server connected [id=${client.id}]`);
 
-            console.log("hola 1")
+
 
             // simple DF detectIntent call
             ss(client).on('stream-speech', async function (stream: any, data: any) {
@@ -110,7 +110,7 @@ console.log()
                     // console.log(transcribeObj.words[0].speakerTag);
                     // don't want to transcribe the tts output
                     // if(transcribeObj.words[0].speakerTag > 1) return;
-                    console.log("hola 2")
+
                     me.socketClient.emit('transcript', transcribeObj.transcript);
                 
                     // translate the transcript if the target language is not the same 
@@ -121,7 +121,7 @@ console.log()
                         response = response.translatedText;
                     }
 
-                    console.log("hola 3")
+
 
                     // Match the intent
                     const intentMatch = await dialogflow.detectIntent(response);
@@ -130,7 +130,7 @@ console.log()
                     // as the Dialogflow base language.
                     let intentResponse = intentMatch.FULFILLMENT_TEXT;
 
-                    console.log("hola 4")
+
                     console.log(intentMatch.FULFILLMENT_TEXT)
                     console.log(intentResponse)
 
@@ -139,7 +139,7 @@ console.log()
                     console.log("no translate")
                     me.socketClient.emit('results', intentMatch);
                     
-                    console.log("hola 5")
+
 
                     // TTS the answer
                     speech.textToSpeech(intentResponse, targetLang).then(function(audio: AudioBuffer){
