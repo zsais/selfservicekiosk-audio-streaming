@@ -14,7 +14,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['run', 'deploy', '${_IMAGE}', '--image', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', 
-  '--region', '${_LOCATION}', '--concurrency', '2',
+  '--region', '${_LOCATION}',
   '--update-env-vars', 'PROJECT_ID=$PROJECT_ID,AGENT_ID=${_AGENT_ID},LANGUAGE_CODE=en-US,ENCODING=AUDIO_ENCODING_LINEAR_16,SAMPLE_RATE_HERZ=16000,SINGLE_UTTERANCE=false,SPEECH_ENCODING=LINEAR16,SSML_GENDER=MALE']
 images:
 - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}'
