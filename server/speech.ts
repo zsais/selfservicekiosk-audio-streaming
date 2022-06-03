@@ -107,11 +107,13 @@ export class Speech {
      */
     setSpeechTweaks(lang: string){
       if(lang == 'nl-NL'){
+          console.log("NL")
         this.ttsRequest.audioConfig.pitch = -6;
         this.ttsRequest.audioConfig.speakingRate = 0.95;
       } else {
+          console.log("not NL")
         this.ttsRequest.audioConfig.pitch = 0;
-        this.ttsRequest.audioConfig.speakingRate = 1;      
+        this.ttsRequest.audioConfig.speakingRate = 1.5;      
       }
     }
 
