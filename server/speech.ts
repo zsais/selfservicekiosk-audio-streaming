@@ -108,7 +108,7 @@ export class Speech {
     setSpeechTweaks(lang: string){
         console.log("not NL")
         this.ttsRequest.audioConfig.pitch = 0;
-        this.ttsRequest.audioConfig.speakingRate = 3;      
+        this.ttsRequest.audioConfig.speakingRate = 0.3;      
     }
 
 
