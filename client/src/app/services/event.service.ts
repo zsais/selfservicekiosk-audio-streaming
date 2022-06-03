@@ -32,6 +32,10 @@ export class EventService {
         this.IS_PLAYING_TTS = isPlaying;
     }
 
+    setNotPlaying(){
+      this.IS_PLAYING_TTS = FALSE;
+    }
+
     getIsPlaying() {
         return this.IS_PLAYING_TTS;
     }

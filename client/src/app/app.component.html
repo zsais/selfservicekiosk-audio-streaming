@@ -38,7 +38,11 @@
       <app-microphone [waveform]="waveform"></app-microphone>
     <app-waveform #waveform></app-waveform>
     <button id="pastelb" type="button" class="btn mic_button stop_btn btn-info w-100" (click)="onReset();">
-      Reset the microphone 
+      Reset the microphone
+    </button>
+
+    <button type="button" (click)="stopStream();">
+      Stop Stream
     </button>
 
   </div>
@@ -51,6 +55,9 @@
     <div><app-dialogflow></app-dialogflow></div>
   </div>
 </div>
+
+
+
 
 
 

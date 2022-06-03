@@ -37,23 +37,12 @@ export class AppComponent {
 
   onReset() {
     this.eventService.resetInterface.emit();
-    // this.languageSwitch('en-US', null);
   }
 
+  stopStream(){
+    this.eventService.setNotPlaying()
+  }
 
-  // languageSwitch(lang: string, e: Event) {
-  //   let flags = document.getElementsByClassName('flag');
-  //   for (let i = 0; i < flags.length; i++) {
-  //     flags[i].className = 'flag inactive';
-  //   }
-  //   if(e === null) {
-  //     flags[0].className = 'flag active';
-  //   } else {
-  //     let element = e.target as HTMLElement;
-  //     element.className = 'flag active';
-  //   }
-  //   this.ioService.setDefaultLanguage(lang);
-  // }
 
   /**
    * Chrome on iOS (iPhone & iPad) can't make use of WebRTC & getUserMedia()
