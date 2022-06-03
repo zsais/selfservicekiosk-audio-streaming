@@ -101,6 +101,9 @@ export class MicrophoneComponent {
           me.recordAudio.startRecording();
           // recording started
           me.waveform.start(stream);
+
+
+        //   this.recordAudio.stopRecording();
       }).catch(function(error) {
           console.error(JSON.stringify(error));
       });
