@@ -80,7 +80,7 @@ export class MicrophoneComponent {
               // as you might not want to make detect calls every seconds
               timeSlice: 10000,
 
-              silence: 1000,
+              silence: 1.0,
 
               // only for audio track
               // audioBitsPerSecond: 128000,
