@@ -58,6 +58,7 @@ export class MicrophoneComponent {
       me.startDisabled = true;
       // make use of HTML 5/WebRTC, JavaScript getUserMedia()
       // to capture the browser microphone stream
+
       navigator.mediaDevices.getUserMedia({
           audio: true
       }).then(function(stream: MediaStream) {
@@ -78,6 +79,8 @@ export class MicrophoneComponent {
               // value in milliseconds
               // as you might not want to make detect calls every seconds
               timeSlice: 10000,
+
+              silence: 1000,
 
               // only for audio track
               // audioBitsPerSecond: 128000,

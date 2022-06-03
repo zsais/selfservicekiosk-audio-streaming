@@ -40,6 +40,7 @@ export class AppComponent {
   }
 
   stopStream(){
+    console.log("Stopping the stream");
     this.eventService.setNotPlaying()
   }
 
