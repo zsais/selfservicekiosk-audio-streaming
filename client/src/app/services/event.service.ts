@@ -33,7 +33,7 @@ export class EventService {
     }
 
     setNotPlaying(){
-      this.IS_PLAYING_TTS = FALSE;
+      this.IS_PLAYING_TTS = false;
     }
 
     getIsPlaying() {
