@@ -77,7 +77,7 @@ export class MicrophoneComponent {
               // get intervals based blobs
               // value in milliseconds
               // as you might not want to make detect calls every seconds
-              timeSlice: 5000,
+              timeSlice: 9000,
 
               // only for audio track
               // audioBitsPerSecond: 128000,
