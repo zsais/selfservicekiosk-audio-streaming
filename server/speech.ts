@@ -105,11 +105,13 @@ export class Speech {
      * In certain languages, we tend to speak faster, or the pitch just sounds
      * a bit off.
      */
-    setSpeechTweaks(lang: string){
-        console.log("not NL")
-        this.ttsRequest.audioConfig.pitch = 0;
-        this.ttsRequest.audioConfig.speakingRate = 0.3;      
-    }
+    // setSpeechTweaks(lang: string){
+    
+    //     console.log("not NL")
+    //     this.ttsRequest.audioConfig.pitch = 0;
+    //     this.ttsRequest.audioConfig.speakingRate = 1.5;      
+
+    // }
 
 
 }
