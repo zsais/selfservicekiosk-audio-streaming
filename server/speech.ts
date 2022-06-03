@@ -94,7 +94,7 @@ export class Speech {
     async textToSpeech(text: string, lang: string) {
         this.ttsRequest.input = { text };
         this.ttsRequest.voice.languageCode = lang;
-        this.setSpeechTweaks(lang);
+        // this.setSpeechTweaks(lang);
         const responses = await this.tts.synthesizeSpeech(this.ttsRequest);
         return responses[0].audioContent;  
     }
